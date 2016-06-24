@@ -159,6 +159,23 @@
   'comments':
     'patterns': [
       {
+        'begin': '(^[ \\t]+)?(?=--)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.whitespace.comment.leading.cql'
+        'end': '(?!\\G)'
+        'patterns': [
+          {
+            'begin': '--'
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.comment.cql'
+            'end': '\\n'
+            'name': 'comment.line.double-dash.cql'
+          }
+        ]
+      }
+      {
         'begin': '(^[ \\t]+)?(?=//)'
         'beginCaptures':
           '1':
@@ -171,24 +188,7 @@
               '0':
                 'name': 'punctuation.definition.comment.cql'
             'end': '\\n'
-            'name': 'comment.line.double-dash.cql'
-          }
-        ]
-      }
-      {
-        'begin': '(^[ \\t]+)?(?=#)'
-        'beginCaptures':
-          '1':
-            'name': 'punctuation.whitespace.comment.leading.cql'
-        'end': '(?!\\G)'
-        'patterns': [
-          {
-            'begin': '#'
-            'beginCaptures':
-              '0':
-                'name': 'punctuation.definition.comment.cql'
-            'end': '\\n'
-            'name': 'comment.line.number-sign.cql'
+            'name': 'comment.line.double-slash.cql'
           }
         ]
       }
