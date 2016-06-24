@@ -1,0 +1,349 @@
+'scopeName': 'source.cql'
+'name': 'Cassandra (CQL)'
+'fileTypes': [
+  'cql'
+]
+'patterns': [
+  {
+    'include': '#comments'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.create.cql'
+      '2':
+        'name': 'keyword.other.cql'
+      '4':
+        'name': 'entity.name.function.cql'
+    'match': '(?i:^\\s*(create)\\s+(index|keyspace|table|trigger|type|user)\\s+)([\'"`]?)(\\w+)\\3'
+    'name': 'meta.create.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.create.cql'
+      '2':
+        'name': 'keyword.other.cql'
+    'match': '(?i:^\\s*(drop)\\s+(index|keyspace|table|trigger|type|user))'
+    'name': 'meta.drop.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.create.cql'
+      '2':
+        'name': 'keyword.other.table.cql'
+      '3':
+        'name': 'entity.name.function.cql'
+      '4':
+        'name': 'keyword.other.cascade.cql'
+    'match': '(?i:\\s*(drop)\\s+(table)\\s+(\\w+)(\\s+cascade)?\\b)'
+    'name': 'meta.drop.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.create.cql'
+      '2':
+        'name': 'entity.name.function.cql'
+      '3':
+        'name': 'entity.name.function.cql'
+    'match': '(?i:\\s*(truncate)\\s+(\\w+)(\.\\w+)?\\b)'
+    'name': 'meta.truncate.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.create.cql'
+      '2':
+        'name': 'keyword.other.keyspace.cql'
+      '4':
+        'name': 'entity.name.function.cql'
+    'match': '(?i:^\\s*(alter)\\s+(keyspace|table|type|user)\\s+([\'"`]?)(\\w+)\\3)'
+    'name': 'meta.alter.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.type.cql'
+      '2':
+        'name': 'storage.type.cql'
+      '3':
+        'name': 'keyword.other.create.cql'
+      '4':
+        'name': 'storage.type.cql'
+      '5':
+        'name': 'storage.type.cql'
+      '6':
+        'name': 'storage.type.cql'
+    'match': '''
+              (?xi)
+              # normal stuff, capture 1
+              \\b(ascii|bigint|blob|boolean|counter|decimal|double|float|inet|int|text|timestamp|uuid|timeuuid|varchar|varint)\\b
+
+              # list and set, capture 2 + 3i
+              |\\b(list|set)(?:\\<(ascii|bigint|blob|boolean|counter|decimal|double|float|inet|int|text|timestamp|uuid|timeuuid|varchar|varint)\\>)?
+
+              # map, capture 4 + 5i + 6i
+              |\\b(map)(?:\\s*\\<\\s*(\\w+)\\s*,\\s*(\\w+)\\s*\\>)
+            '''
+  }
+  {
+    'match': '(?i:\\b((?:primary)\\s+key)\\b)'
+    'name': 'storage.modifier.cql'
+  }
+  {
+    'match': '\\b(\\d+\\.\\d+)|(\\d+\\.)|(\\.\\d+)|\\b(\\d+)\\b'
+    'name': 'constant.numeric.cql'
+  }
+  {
+    'match': '\\b(true|false)\\b'
+    'name': 'constant.numeric.cql'
+  }
+  {
+    'match': '(?i:\\b(select|insert\\s+(ignore\\s+)?into|update|delete|from|set|where|group\\s+by|or|like|between|and|union(\\s+all)?|having|order\\s+by|limit|offset|(inner|cross)\\s+join|join|straight_join|(left|right)(\\s+outer)?\\s+join|natural(\\s+(left|right)(\\s+outer)?)?\\s+join|using|regexp|rlike)\\b)'
+    'name': 'keyword.other.DML.cql'
+  }
+  {
+    'match': '(?i:\\bvalues\\b)'
+    'name': 'keyword.other.DML.II.cql'
+  }
+  {
+    'match': '(?i:\\b(with\\s+replication|durable_writes)\\b)'
+    'name': 'keyword.other.DML.II.cql'
+  }
+  {
+    'match': '(?i:(\\bnot\\s+)?\\bin\\b)'
+    'name': 'keyword.other.data-integrity.cql'
+  }
+  {
+    'match': '(?i:\\bnot\\b)'
+    'name': 'keyword.other.not.cql'
+  }
+  {
+    'match': '(?i)\\b(DESC|ASC)\\b'
+    'name': 'keyword.other.order.cql'
+  }
+  {
+    'match': '\\*'
+    'name': 'keyword.operator.star.cql'
+  }
+  {
+    'match': '[!<>]?=|<>|<|>'
+    'name': 'keyword.operator.comparison.cql'
+  }
+  {
+    'match': '-|\\+|/'
+    'name': 'keyword.operator.math.cql'
+  }
+  {
+    'match': '\\|\\|'
+    'name': 'keyword.operator.concatenator.cql'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'constant.other.keyspace-name.cql'
+      '2':
+        'name': 'constant.other.table-name.cql'
+    'match': '(\\w+?)\\.(\\w+)'
+  }
+  {
+    'include': '#strings'
+  }
+  {
+    'include': '#regexps'
+  }
+]
+'repository':
+  'comments':
+    'patterns': [
+      {
+        'begin': '(^[ \\t]+)?(?=//)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.whitespace.comment.leading.cql'
+        'end': '(?!\\G)'
+        'patterns': [
+          {
+            'begin': '//'
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.comment.cql'
+            'end': '\\n'
+            'name': 'comment.line.double-dash.cql'
+          }
+        ]
+      }
+      {
+        'begin': '(^[ \\t]+)?(?=#)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.whitespace.comment.leading.cql'
+        'end': '(?!\\G)'
+        'patterns': [
+          {
+            'begin': '#'
+            'beginCaptures':
+              '0':
+                'name': 'punctuation.definition.comment.cql'
+            'end': '\\n'
+            'name': 'comment.line.number-sign.cql'
+          }
+        ]
+      }
+      {
+        'begin': '/\\*'
+        'captures':
+          '0':
+            'name': 'punctuation.definition.comment.cql'
+        'end': '\\*/'
+        'name': 'comment.block.c'
+      }
+    ]
+  'regexps':
+    'patterns': [
+      {
+        'begin': '/(?=\\S.*/)'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'end': '/'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.regexp.cql'
+        'patterns': [
+          {
+            'include': '#string_interpolation'
+          }
+          {
+            'match': '\\\\/'
+            'name': 'constant.character.escape.slash.cql'
+          }
+        ]
+      }
+      {
+        'begin': '%r\\{'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'comment': 'We should probably handle nested bracket pairs!?! -- Allan'
+        'end': '\\}'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.regexp.modr.cql'
+        'patterns': [
+          {
+            'include': '#string_interpolation'
+          }
+        ]
+      }
+    ]
+  'string_escape':
+    'match': '\\\\.'
+    'name': 'constant.character.escape.cql'
+  'string_interpolation':
+    'captures':
+      '1':
+        'name': 'punctuation.definition.string.end.cql'
+    'match': '(#\\{)([^\\}]*)(\\})'
+    'name': 'string.interpolated.cql'
+  'strings':
+    'patterns': [
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.string.begin.cql'
+          '2':
+            'name': 'punctuation.definition.string.end.cql'
+        'comment': 'this is faster than the next begin/end rule since sub-pattern will match till end-of-line and SQL files tend to have very long lines.'
+        'match': '(\')[^\'\\\\]*(\')'
+        'name': 'string.quoted.single.cql'
+      }
+      {
+        'begin': '\''
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'end': '\''
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.quoted.single.cql'
+        'patterns': [
+          {
+            'include': '#string_escape'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.string.begin.cql'
+          '2':
+            'name': 'punctuation.definition.string.end.cql'
+        'comment': 'this is faster than the next begin/end rule since sub-pattern will match till end-of-line and SQL files tend to have very long lines.'
+        'match': '(`)[^`\\\\]*(`)'
+        'name': 'string.quoted.other.backtick.cql'
+      }
+      {
+        'begin': '`'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'end': '`'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.quoted.other.backtick.cql'
+        'patterns': [
+          {
+            'include': '#string_escape'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.string.begin.cql'
+          '2':
+            'name': 'punctuation.definition.string.end.cql'
+        'comment': 'this is faster than the next begin/end rule since sub-pattern will match till end-of-line and SQL files tend to have very long lines.'
+        'match': '(")[^"#]*(")'
+        'name': 'string.quoted.double.cql'
+      }
+      {
+        'begin': '"'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'end': '"'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.quoted.double.cql'
+        'patterns': [
+          {
+            'include': '#string_interpolation'
+          }
+        ]
+      }
+      {
+        'begin': '%\\{'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.string.begin.cql'
+        'end': '\\}'
+        'endCaptures':
+          '0':
+            'name': 'punctuation.definition.string.end.cql'
+        'name': 'string.other.quoted.brackets.cql'
+        'patterns': [
+          {
+            'include': '#string_interpolation'
+          }
+        ]
+      }
+    ]

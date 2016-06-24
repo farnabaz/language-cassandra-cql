@@ -1,0 +1,6 @@
+'.source.cql':
+  'editor':
+    'commentStart': '// '
+    'foldEndPattern': '^\\s*\\)'
+    'increaseIndentPattern': '^\\s*(create|insert|delete|update)\\b|\\((?!.*\\))'
+    'decreaseIndentPattern': '^\\s*\\)(?!=.*\\()'
