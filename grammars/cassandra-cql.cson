@@ -125,6 +125,10 @@
     'name': 'keyword.other.order.cql'
   }
   {
+    'match': '(?i)\\b(static)\\b'
+    'name': 'keyword.other.static.cql'
+  }
+  {
     'match': '\\*'
     'name': 'keyword.operator.star.cql'
   }
