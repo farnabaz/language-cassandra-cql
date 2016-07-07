@@ -1,6 +1,6 @@
 {
   "name": "language-cassandra-cql",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Cassandra CQL language support in Atom",
   "engines": {
     "atom": "*",
